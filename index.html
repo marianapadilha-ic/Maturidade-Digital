@@ -316,9 +316,9 @@
 
   /* ── FOOTER ── */
   .footer {
-    text-align: center; padding: 50px 48px;
+    text-align: center; padding: 40px 48px;
     border-top: 1px solid rgba(0,0,0,0.06);
-    background: #a91c31;
+    background: linear-gradient(135deg, #a91c31 0%, #7a1422 100%);
   }
 
   .footer-sub {
@@ -369,18 +369,43 @@
   }
 
   .sidebar-group {
-    display: flex; align-items: center;
-    padding: 20px 24px 8px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px;
     font-size: 9px; font-weight: 700;
     letter-spacing: 3px; text-transform: uppercase;
     color: var(--red-1);
     border-top: 1px solid rgba(0,0,0,0.06);
-    margin-top: 8px;
+    margin-top: 4px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
   }
 
+  .sidebar-group:hover { background: rgba(169,28,49,0.04); }
   .sidebar-group:first-of-type { border-top: none; margin-top: 0; }
 
-  .sidebar-group-items { display: block; }
+  .sidebar-group-chevron {
+    width: 7px; height: 7px;
+    border-right: 1.5px solid var(--red-1);
+    border-bottom: 1.5px solid var(--red-1);
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+    margin-top: -2px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-group.collapsed .sidebar-group-chevron {
+    transform: rotate(-135deg);
+    margin-top: 3px;
+  }
+
+  .sidebar-group-items {
+    overflow: hidden;
+    max-height: 600px;
+    transition: max-height 0.4s ease;
+  }
+
+  .sidebar-group-items.collapsed { max-height: 0; }
 
   .sidebar-item.sub { padding-left: 36px; }
 
@@ -434,8 +459,8 @@
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
 
-  <div class="sidebar-group">
-    Inicial
+  <div class="sidebar-group" onclick="toggleGroup(this)">
+    <span>Inicial</span><span class="sidebar-group-chevron"></span>
   </div>
   <div class="sidebar-group-items">
     <a class="sidebar-item" href="#implementacao"><span class="sidebar-num"></span><span class="sidebar-text">Implementação de eventos</span></a>
@@ -448,8 +473,8 @@
     <a class="sidebar-item" href="#vinculacao"><span class="sidebar-num"></span><span class="sidebar-text">Vinculação de produtos</span></a>
   </div>
 
-  <div class="sidebar-group">
-    Intermediário
+  <div class="sidebar-group" onclick="toggleGroup(this)">
+    <span>Intermediário</span><span class="sidebar-group-chevron"></span>
   </div>
   <div class="sidebar-group-items">
     <a class="sidebar-item" href="#leads"><span class="sidebar-num"></span><span class="sidebar-text">Geração de leads</span></a>
@@ -458,8 +483,8 @@
     <a class="sidebar-item" href="#consent"><span class="sidebar-num"></span><span class="sidebar-text">Consent mode</span></a>
   </div>
 
-  <div class="sidebar-group">
-    Avançado
+  <div class="sidebar-group" onclick="toggleGroup(this)">
+    <span>Avançado</span><span class="sidebar-group-chevron"></span>
   </div>
   <div class="sidebar-group-items">
     <a class="sidebar-item" href="#leads2"><span class="sidebar-num"></span><span class="sidebar-text">Geração de leads avançada</span></a>
@@ -498,16 +523,18 @@
     </div>
     <p class="hero-subtitle">Transformação digital começa pelo autoconhecimento</p>
   </div>
-  <div class="hero-scroll">
-    <span>scroll</span>
-    <div class="hero-scroll-line"></div>
-  </div>
 </section>
 
 <!-- 01 IMPLEMENTAÇÃO DE EVENTOS -->
+<section class="section reveal" id="inicial-intro" style="background: linear-gradient(135deg, #a91c31 0%, #7a1422 100%); color: white; padding: 48px 64px;">
+  <p style="font-size:9px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:12px;">Nível</p>
+  <h2 style="font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:600; color:white; margin-bottom:20px; line-height:1.2;">Inicial</h2>
+  <p style="font-size:15px; line-height:1.8; color:rgba(255,255,255,0.85); max-width:640px;">Tudo começa de algum lugar, aqui daremos início à sua jornada de Maturidade Digital. Garantindo que sua Implementação nos Fluxos Web/App e Dados de Campanha sejam um único Ecossistema.</p>
+</section>
+
 <section class="section reveal" id="implementacao">
   <h2 class="section-title">Implementação de Eventos</h2>
-  <div class="section-summary"><span class="section-summary-icon">📡</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">📡</span><p class="section-summary-text">A Implementação de Eventos possibilita acompanhar o comportamento do usuário dos seus cliques aos seus dados de navegação e mídia.</p></div>
 
   <p class="section-lead">Na jornada de Maturidade Digital, a Implementação de Eventos é a infraestrutura que permite à sua organização "escutar" e traduzir o comportamento do usuário em insights acionáveis. Para além de registrar cliques, trata-se de capturar a intenção do cliente em cada ponto de contato com seus ativos digitais.</p>
   <p class="section-text">Ao estabelecer essa coleta de dados primários de alta qualidade, sua empresa deixa de operar por suposições e passa a dominar a jornada do consumidor. Essa base sólida é o que viabiliza:</p>
@@ -533,30 +560,201 @@
 </section>
 
 <!-- 02 GERAÇÃO DE LEADS -->
-<section class="section reveal" id="leads">
-  <h2 class="section-title">Geração de Leads</h2>
-  <div class="section-summary"><span class="section-summary-icon">🎯</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+<section class="section reveal" id="documentacao">
+  <h2 class="section-title">Documentação Técnica — Criação e Validação</h2>
+  <div class="section-summary"><span class="section-summary-icon">📋</span><p class="section-summary-text">Garantindo a captação de dados com pouca manutenção e maior praticidade.</p></div>
 
-  <p class="section-lead">A Geração de Leads é o processo de transformar visitantes anônimos em oportunidades de negócio reais, capturando informações que permitem iniciar um relacionamento comercial estratégico.</p>
-  <p class="section-text">Em um mercado onde a maioria das empresas ainda utiliza ferramentas digitais de forma intuitiva e pouco estratégica, o grande desafio não é apenas atrair volume, mas garantir que cada contato capturado tenha um perfil qualificado e alinhado aos objetivos de vendas da organização.</p>
-  <p class="section-text">Para dar inteligência a esse processo, a Implementação de Eventos atua como uma camada de monitoramento que registra cada interação do usuário antes mesmo da conversão final. Ao coletar esses dados primários, sua empresa deixa de depender de suposições e passa a entender quais comportamentos — como o download de um material rico ou a interação com uma demonstração — sinalizam uma intenção real de compra. Essa base sólida permite segmentar leads com precisão e priorizar os esforços comerciais nos contatos que oferecem o maior potencial de retorno sobre o investimento (ROI).</p>
+  <p class="section-lead">A fase de documentação técnica é o alicerce que garante a integridade de todo o sistema de mensuração. Desenvolvemos o Plano de Mensuração — um roteiro detalhado que traduz os seus objetivos de negócio em especificações técnicas precisas.</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left"><span class="card-title">Definição da Camada de Dados</span></div>
+        <div class="card-chevron"></div>
+      </div>
+      <div class="card-body"><div class="card-body-inner"><p>Criamos a estrutura que organiza as informações no site para que as ferramentas de marketing as leiam com perfeição, sem depender de alterações constantes no código.</p></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left"><span class="card-title">Protocolos de Auditoria</span></div>
+        <div class="card-chevron"></div>
+      </div>
+      <div class="card-body"><div class="card-body-inner"><p>Realizamos testes em ambiente de homologação para garantir que os eventos de conversão (vendas, leads, carrinho) estão sendo disparados com os valores e parâmetros corretos.</p></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left"><span class="card-title">Governança e Continuidade</span></div>
+        <div class="card-chevron"></div>
+      </div>
+      <div class="card-body"><div class="card-body-inner"><p>Estabelecemos um guia de boas práticas para que futuras atualizações no seu site não interrompam o rastreamento, preservando o histórico e a inteligência das campanhas.</p></div></div>
+    </div>
+  </div>
 </section>
 
-<!-- 03 TAXONOMIA DE DADOS -->
+<!-- 09 MAPEAMENTO -->
+<section class="section reveal" id="mapeamento">
+  <h2 class="section-title">Mapeamento de Eventos</h2>
+  <div class="section-summary"><span class="section-summary-icon">🗺️</span><p class="section-summary-text">O esqueleto das análises, a partir dele temos como definir e regrar o funcionamento das demais etapas do fluxo.</p></div>
+
+  <p class="section-lead">O mapeamento se dá necessário quando queremos entender todos os pontos de entrada e contato do usuário para/com a sua plataforma, permitindo um melhor entendimento das jornadas que o mesmo pode ter e como otimizar pontos de conversão.</p>
+  <p class="section-text">Assim, a partir de análises de navegação no ambiente apontado e também de alinhamentos com os objetivos do seu empreendimento, é construído um Mapa de Tags. Tags essas que são formas de enviarmos informações da jornada do usuário para a plataforma, tendo como meta o melhor tracking e profiling.</p>
+
+  <div class="diagram-wrap" style="padding:32px 20px; margin-top:40px;">
+    <svg viewBox="0 0 1200 640" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="600" y="40" text-anchor="middle" font-family="Poppins,sans-serif" font-size="17.6" font-weight="600" fill="rgba(255,255,255,0.92)" letter-spacing="4">MAPEAMENTO DE EVENTOS</text>
+      <rect x="60" y="70" width="1080" height="4" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="160" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+      <text x="160" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.8" font-weight="600" fill="white">1</text>
+      <text x="160" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.8)">Landing Page</text>
+      <rect x="80" y="118" width="160" height="60" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+      <text x="160" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="1">page_view</text>
+      <text x="160" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">source / medium</text>
+      <text x="160" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">page_title</text>
+      <circle cx="390" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+      <text x="390" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.8" font-weight="600" fill="white">2</text>
+      <text x="390" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.8)">Engajamento</text>
+      <rect x="310" y="118" width="160" height="75" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+      <text x="390" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="1">scroll / click</text>
+      <text x="390" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">element_id</text>
+      <text x="390" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">scroll_depth</text>
+      <text x="390" y="183" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">click_text</text>
+      <circle cx="620" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+      <text x="620" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.8" font-weight="600" fill="white">3</text>
+      <text x="620" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.8)">Formulário</text>
+      <rect x="540" y="118" width="160" height="75" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+      <text x="620" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="1">generate_lead</text>
+      <text x="620" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">form_id</text>
+      <text x="620" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">lead_source</text>
+      <text x="620" y="183" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">email (hashed)</text>
+      <circle cx="860" cy="72" r="11" fill="rgba(169,28,49,0.4)" stroke="rgba(255,255,255,0.85)" stroke-width="2.5"/>
+      <text x="860" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.8" font-weight="600" fill="white">4</text>
+      <text x="860" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.95)">Conversão ★</text>
+      <rect x="775" y="118" width="170" height="75" rx="4" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+      <text x="860" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" font-weight="600" fill="rgba(255,255,255,0.9)" letter-spacing="1">purchase</text>
+      <text x="860" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.9)">transaction_id</text>
+      <text x="860" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.9)">value / currency</text>
+      <text x="860" y="183" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.9)">items[ ]</text>
+      <circle cx="1080" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+      <text x="1080" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10.8" font-weight="600" fill="white">5</text>
+      <text x="1080" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.8)">Pós-venda</text>
+      <rect x="1000" y="118" width="160" height="60" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+      <text x="1080" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="1">refund / offline</text>
+      <text x="1080" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">order_status</text>
+      <text x="1080" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11.5" fill="rgba(255,255,255,0.85)">refund_value</text>
+      <text x="60" y="270" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.75)" letter-spacing="3">DESTINOS</text>
+      <rect x="60" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <text x="125" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.95)">GA4</text>
+      <rect x="208" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <text x="273" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.95)">Google Ads</text>
+      <rect x="356" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <text x="421" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.95)">Meta CAPI</text>
+      <rect x="504" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <text x="569" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.95)">DV360</text>
+      <rect x="652" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <text x="717" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.95)">CRM</text>
+      <rect x="60" y="360" width="1080" height="80" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.7)" stroke-width="1" stroke-dasharray="5,4"/>
+      <text x="80" y="385" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.8)" letter-spacing="2">LEGENDA</text>
+      <circle cx="90" cy="408" r="5" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+      <text x="102" y="412" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.85)">Ponto de coleta</text>
+      <rect x="210" y="403" width="12" height="12" rx="2" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
+      <text x="228" y="412" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.85)">Evento + parâmetros</text>
+      <rect x="380" y="403" width="12" height="12" rx="2" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+      <text x="398" y="412" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.85)">Conversão principal</text>
+    </svg>
+    <p class="diagram-caption">Jornada do usuário — pontos de coleta e eventos por etapa</p>
+  </div>
+</section>
+
+<!-- 10 GLOSSÁRIO -->
+<section class="section reveal" id="glossario">
+  <h2 class="section-title">Glossário de Atributos</h2>
+  <div class="section-summary"><span class="section-summary-icon">🏷️</span><p class="section-summary-text">Uma documentação técnica para garantir coletas e disparos com maior performance no seu ambiente.</p></div>
+
+  <p class="section-lead">O Glossário de Atributos parte do Mapa de Tags, visando adicionar atributos que funcionam como identificadores em determinados elementos no ambiente.</p>
+  <p class="section-text">Com esses identificadores temos possibilidade de coletar informações de texto a nível de cliques, inclusive garantir por meio destes identificadores que o tagueamento perdure com poucas ou quase nenhuma manutenção.</p>
+</section>
+
+<!-- 11 DATALAYERS -->
+<section class="section reveal" id="datalayers">
+  <h2 class="section-title">Mapa de dataLayers</h2>
+  <div class="section-summary"><span class="section-summary-icon">🔗</span><p class="section-summary-text">Uma documentação técnica capaz de persistir e capturar dados importantes que nem sempre estão visíveis para nós.</p></div>
+
+  <p class="section-lead">O Mapa de dataLayers envia informações que não estão disponíveis na visualização do ambiente, como o ID de um produto ou ID do usuário.</p>
+  <p class="section-text">O outro uso é de persistir informações que estão presentes em uma etapa da jornada em outra em que as mesmas não estão, porém são úteis para o evento — garantindo continuidade e integridade dos dados ao longo de toda a jornada.</p>
+
+  <div class="diagram-wrap" style="padding:32px 20px; margin-top:40px;">
+    <svg viewBox="0 0 1200 640" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="600" y="44" text-anchor="middle" font-family="Poppins,sans-serif" font-size="17.6" font-weight="600" fill="rgba(255,255,255,0.92)" letter-spacing="4">MAPA DE DATALAYERS</text>
+      <rect x="60" y="80" width="200" height="70" rx="4" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+      <text x="160" y="112" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="1">AÇÃO DO USUÁRIO</text>
+      <text x="160" y="132" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="300" fill="rgba(255,255,255,0.85)">clique no botão CTA</text>
+      <line x1="160" y1="150" x2="160" y2="195" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+      <polygon points="155,193 165,193 160,203" fill="rgba(255,255,255,0.85)"/>
+      <rect x="60" y="205" width="200" height="95" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+      <text x="160" y="228" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="1">dataLayer.push</text>
+      <text x="80" y="248" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.9)">event: 'purchase'</text>
+      <text x="80" y="264" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.9)">product_id: '1234'</text>
+      <text x="80" y="280" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.9)">user_id: 'abc99'</text>
+      <line x1="260" y1="252" x2="340" y2="252" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+      <polygon points="338,247 338,257 348,252" fill="rgba(255,255,255,0.85)"/>
+      <rect x="350" y="205" width="160" height="95" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+      <text x="430" y="245" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="1">GTM</text>
+      <text x="430" y="265" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.8" font-weight="300" fill="rgba(255,255,255,0.85)">escuta o evento</text>
+      <text x="430" y="281" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.8" font-weight="300" fill="rgba(255,255,255,0.85)">dispara as tags</text>
+      <line x1="510" y1="252" x2="575" y2="252" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+      <line x1="575" y1="195" x2="575" y2="330" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <line x1="575" y1="195" x2="590" y2="195" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <line x1="575" y1="252" x2="590" y2="252" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <line x1="575" y1="330" x2="590" y2="330" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+      <rect x="590" y="168" width="140" height="54" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+      <text x="660" y="192" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="600" fill="rgba(255,255,255,0.8)">GA4</text>
+      <text x="660" y="210" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.85)">Analytics</text>
+      <rect x="590" y="225" width="140" height="54" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+      <text x="660" y="249" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="600" fill="rgba(255,255,255,0.8)">Google Ads</text>
+      <text x="660" y="267" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.85)">Conversão</text>
+      <rect x="590" y="303" width="140" height="54" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+      <text x="660" y="327" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="600" fill="rgba(255,255,255,0.8)">Meta / CAPI</text>
+      <text x="660" y="345" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.85)">Pixel + Server</text>
+      <rect x="790" y="90" width="370" height="320" rx="4" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+      <text x="810" y="118" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="3">VARIÁVEIS COMUNS</text>
+      <text x="810" y="148" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.7)">event</text><text x="950" y="148" font-family="Poppins,sans-serif" font-size="13.5" fill="rgba(255,255,255,0.85)">'purchase', 'add_to_cart'</text>
+      <line x1="810" y1="158" x2="1135" y2="158" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="810" y="178" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.7)">user_id</text><text x="950" y="178" font-family="Poppins,sans-serif" font-size="13.5" fill="rgba(255,255,255,0.85)">ID único do usuário logado</text>
+      <line x1="810" y1="188" x2="1135" y2="188" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="810" y="208" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.7)">product_id</text><text x="950" y="208" font-family="Poppins,sans-serif" font-size="13.5" fill="rgba(255,255,255,0.85)">SKU ou ID do produto</text>
+      <line x1="810" y1="218" x2="1135" y2="218" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="810" y="238" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.7)">transaction_id</text><text x="950" y="238" font-family="Poppins,sans-serif" font-size="13.5" fill="rgba(255,255,255,0.85)">ID único da transação</text>
+      <line x1="810" y1="248" x2="1135" y2="248" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="810" y="268" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.7)">value</text><text x="950" y="268" font-family="Poppins,sans-serif" font-size="13.5" fill="rgba(255,255,255,0.85)">Valor monetário do evento</text>
+      <line x1="810" y1="278" x2="1135" y2="278" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="810" y="298" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.7)">page_category</text><text x="950" y="298" font-family="Poppins,sans-serif" font-size="13.5" fill="rgba(255,255,255,0.85)">Categoria da página atual</text>
+      <line x1="810" y1="308" x2="1135" y2="308" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="810" y="328" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.7)">currency</text><text x="950" y="328" font-family="Poppins,sans-serif" font-size="13.5" fill="rgba(255,255,255,0.85)">'BRL', 'USD'</text>
+      <line x1="810" y1="338" x2="1135" y2="338" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+      <text x="810" y="358" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.7)">consent_status</text><text x="950" y="358" font-family="Poppins,sans-serif" font-size="13.5" fill="rgba(255,255,255,0.85)">'granted' / 'denied'</text>
+      <rect x="60" y="370" width="620" height="60" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.35)" stroke-width="1" stroke-dasharray="5,4"/>
+      <text x="80" y="395" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="2">PERSISTÊNCIA</text>
+      <text x="80" y="413" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.8)">Dados de etapas anteriores (ex: ID do produto) são mantidos nas etapas seguintes da jornada</text>
+    </svg>
+    <p class="diagram-caption">Fluxo de dados — dataLayer → GTM → plataformas</p>
+  </div>
+</section>
+
+<!-- 12 CONSENT MODE -->
 <section class="section reveal" id="taxonomia">
   <h2 class="section-title">Taxonomia de Dados</h2>
-  <div class="section-summary"><span class="section-summary-icon">🗂️</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">🗂️</span><p class="section-summary-text">A Taxonomia de Dados é responsável pela padronização de nomenclatura em diversos meios do seu ecossistema, como nome de Eventos, formato de campanhas de Mídia, nomes de dimensões e métricas, entre outros.</p></div>
 
   <p class="section-lead">A Taxonomia de Dados é o sistema de classificação e nomenclatura utilizado para organizar as informações coletadas em suas plataformas digitais. Em um cenário onde muitas empresas brasileiras operam de forma intuitiva e sem integração, é comum que os dados sejam registrados de maneira caótica — com nomes diferentes para a mesma ação ou métricas espalhadas em silos.</p>
   <p class="section-text">O ajuste da taxonomia serve para criar um "dicionário único", garantindo que todos na organização falem a mesma língua e que os dados sejam interpretáveis por qualquer ferramenta de análise.</p>
   <p class="section-text">A Normalização dessa taxonomia é o que transforma dados brutos em ativos estratégicos de alta qualidade. Ao padronizar a forma como eventos e parâmetros são nomeados, sua empresa elimina duplicidades e erros de interpretação que distorcem o cálculo do ROI e as análises de funil. Esse processo é fundamental para evoluir na maturidade digital, permitindo que a organização deixe de apenas "acumular informações" e passe a gerar insights precisos para a personalização de experiências e a tomada de decisões conscientes.</p>
 
   <div class="diagram-wrap" style="padding:40px 32px;">
-    <svg viewBox="0 0 1100 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+    <svg viewBox="0 0 1100 600" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
 
       <!-- ROOT -->
       <rect x="400" y="20" width="300" height="56" rx="6" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-      <text x="550" y="52" text-anchor="middle" font-family="Poppins,sans-serif" font-size="15" font-weight="700" fill="white" letter-spacing="3">DADOS</text>
+      <text x="550" y="52" text-anchor="middle" font-family="Poppins,sans-serif" font-size="20.2" font-weight="700" fill="white" letter-spacing="3">DADOS</text>
 
       <!-- Lines root to level 2 -->
       <line x1="550" y1="76" x2="550" y2="105" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
@@ -567,18 +765,18 @@
 
       <!-- LEVEL 2: EVENTOS -->
       <rect x="60" y="130" width="230" height="56" rx="6" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.75)" stroke-width="1.5"/>
-      <text x="175" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="white" letter-spacing="2">EVENTOS</text>
-      <text x="175" y="174" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="400" fill="rgba(255,255,255,0.7)">analytics</text>
+      <text x="175" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="17.6" font-weight="600" fill="white" letter-spacing="2">EVENTOS</text>
+      <text x="175" y="174" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="400" fill="rgba(255,255,255,0.7)">analytics</text>
 
       <!-- LEVEL 2: USUÁRIO -->
       <rect x="435" y="130" width="230" height="56" rx="6" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.75)" stroke-width="1.5"/>
-      <text x="550" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="white" letter-spacing="2">USUÁRIO</text>
-      <text x="550" y="174" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="400" fill="rgba(255,255,255,0.7)">perfil</text>
+      <text x="550" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="17.6" font-weight="600" fill="white" letter-spacing="2">USUÁRIO</text>
+      <text x="550" y="174" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="400" fill="rgba(255,255,255,0.7)">perfil</text>
 
       <!-- LEVEL 2: CAMPANHA -->
       <rect x="810" y="130" width="230" height="56" rx="6" fill="rgba(255,255,255,0.13)" stroke="rgba(255,255,255,0.75)" stroke-width="1.5"/>
-      <text x="925" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="white" letter-spacing="2">CAMPANHA</text>
-      <text x="925" y="174" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="400" fill="rgba(255,255,255,0.7)">mídia</text>
+      <text x="925" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="17.6" font-weight="600" fill="white" letter-spacing="2">CAMPANHA</text>
+      <text x="925" y="174" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="400" fill="rgba(255,255,255,0.7)">mídia</text>
 
       <!-- Lines EVENTOS to level 3 -->
       <line x1="175" y1="186" x2="175" y2="220" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
@@ -589,13 +787,13 @@
 
       <!-- EVENTOS children -->
       <rect x="20" y="244" width="120" height="44" rx="5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="80" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.95)">click</text>
+      <text x="80" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="500" fill="rgba(255,255,255,0.95)">click</text>
 
       <rect x="115" y="244" width="120" height="44" rx="5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="175" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.95)">pageview</text>
+      <text x="175" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="500" fill="rgba(255,255,255,0.95)">pageview</text>
 
       <rect x="210" y="244" width="120" height="44" rx="5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="270" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.95)">form</text>
+      <text x="270" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="500" fill="rgba(255,255,255,0.95)">form</text>
 
       <!-- Lines USUÁRIO to level 3 -->
       <line x1="550" y1="186" x2="550" y2="220" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
@@ -605,10 +803,10 @@
 
       <!-- USUÁRIO children -->
       <rect x="390" y="244" width="130" height="44" rx="5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="455" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.95)">ID</text>
+      <text x="455" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="500" fill="rgba(255,255,255,0.95)">ID</text>
 
       <rect x="580" y="244" width="130" height="44" rx="5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="645" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.95)">segmento</text>
+      <text x="645" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="500" fill="rgba(255,255,255,0.95)">segmento</text>
 
       <!-- Lines CAMPANHA to level 3 -->
       <line x1="925" y1="186" x2="925" y2="220" stroke="rgba(255,255,255,0.55)" stroke-width="1.2"/>
@@ -619,37 +817,37 @@
 
       <!-- CAMPANHA children -->
       <rect x="730" y="244" width="120" height="44" rx="5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="790" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.95)">source</text>
+      <text x="790" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="500" fill="rgba(255,255,255,0.95)">source</text>
 
       <rect x="865" y="244" width="120" height="44" rx="5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="925" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.95)">medium</text>
+      <text x="925" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="500" fill="rgba(255,255,255,0.95)">medium</text>
 
       <rect x="1000" y="244" width="80" height="44" rx="5" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="1040" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.95)">term</text>
+      <text x="1040" y="271" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="500" fill="rgba(255,255,255,0.95)">term</text>
 
       <!-- LEGEND -->
       <rect x="20" y="360" width="1060" height="120" rx="6" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="5,4"/>
-      <text x="40" y="388" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="2">EXEMPLOS DE NOMENCLATURA</text>
+      <text x="40" y="388" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="2">EXEMPLOS DE NOMENCLATURA</text>
 
       <rect x="40" y="402" width="145" height="34" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-      <text x="113" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.9)">click_cta_home</text>
+      <text x="113" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="500" fill="rgba(255,255,255,0.9)">click_cta_home</text>
 
       <rect x="200" y="402" width="165" height="34" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-      <text x="283" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.9)">pageview_produto</text>
+      <text x="283" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="500" fill="rgba(255,255,255,0.9)">pageview_produto</text>
 
       <rect x="380" y="402" width="165" height="34" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-      <text x="463" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.9)">form_lead_contato</text>
+      <text x="463" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="500" fill="rgba(255,255,255,0.9)">form_lead_contato</text>
 
       <rect x="560" y="402" width="145" height="34" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-      <text x="633" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.9)">user_id_123</text>
+      <text x="633" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="500" fill="rgba(255,255,255,0.9)">user_id_123</text>
 
       <rect x="720" y="402" width="145" height="34" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-      <text x="793" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.9)">utm_source</text>
+      <text x="793" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="500" fill="rgba(255,255,255,0.9)">utm_source</text>
 
       <rect x="880" y="402" width="175" height="34" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-      <text x="968" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,0.9)">utm_medium_cpc</text>
+      <text x="968" y="424" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="500" fill="rgba(255,255,255,0.9)">utm_medium_cpc</text>
 
-      <text x="40" y="462" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.5)">Padrão: categoria_ação_contexto — aplicado de forma consistente em todas as plataformas</text>
+      <text x="40" y="462" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.5)">Padrão: categoria_ação_contexto — aplicado de forma consistente em todas as plataformas</text>
     </svg>
     <p class="diagram-caption">Estrutura hierárquica de taxonomia de dados</p>
   </div>
@@ -662,7 +860,7 @@
 <!-- 04 PILARES DA NORMALIZAÇÃO -->
 <section class="section reveal" id="normalizacao">
   <h2 class="section-title">Os Pilares do Ajuste e Normalização de Taxonomia</h2>
-  <div class="section-summary"><span class="section-summary-icon">⚙️</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">⚙️</span><p class="section-summary-text">Definindo e/ou redefinindo nomenclaturas para melhora na gestão organizacional do seu workspace.</p></div>
 
   <p class="section-lead">Para transformar uma estrutura de dados caótica em uma base confiável para decisões de negócio, focamos nestas frentes de ação:</p>
 
@@ -737,7 +935,7 @@
 <!-- 05 VINCULAÇÃO DE PRODUTOS -->
 <section class="section reveal" id="vinculacao">
   <h2 class="section-title">Vinculação de Produtos e Otimização de Campanha</h2>
-  <div class="section-summary"><span class="section-summary-icon">🔌</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">🔌</span><p class="section-summary-text">Integrando dados Cross-Platform para melhor comunicação de produtos Google e Terceiros, permitindo melhor confiabilidade e exatidão Cross-Media.</p></div>
 
   <p class="section-lead">A Vinculação de Produtos é o processo de conectar os dados coletados no seu site diretamente às ferramentas de mídia do Google. Sem essa integração, as campanhas rodam de forma "cega", baseando-se em métricas superficiais como cliques, sem entender quais deles realmente geraram valor.</p>
   <p class="section-text">Ao integrar eventos normalizados e dados primários de alta qualidade, sua empresa alimenta os algoritmos do Google com sinais de conversão reais, permitindo que a IA trabalhe a favor do seu ROI.</p>
@@ -775,41 +973,24 @@
 </section>
 
 <!-- 06 CAPI -->
-<section class="section reveal" id="capi">
-  <h2 class="section-title">Eventos Offline e CAPI</h2>
-  <div class="section-summary"><span class="section-summary-icon">🛡️</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
-
-  <p class="section-lead">A CAPI (Conversion API) e a integração de Eventos Offline representam a evolução do rastreamento digital, permitindo que as empresas enviem dados de conversão diretamente de seus servidores para as plataformas de mídia. Enquanto o Pixel tradicional depende do navegador do usuário — que pode ser bloqueado —, a CAPI garante que nenhuma venda seja perdida.</p>
-
-  <div class="cards">
-    <div class="card">
-      <div class="card-header" onclick="toggleCard(this)">
-        <div class="card-header-left"><span class="card-title">Imunidade ao Fim dos Cookies</span></div>
-        <div class="card-chevron"></div>
-      </div>
-      <div class="card-body"><div class="card-body-inner"><p>Com o aumento das restrições de privacidade nos navegadores, o rastreamento via Pixel tornou-se limitado. A CAPI web resolve esse problema ao processar os dados no servidor, garantindo a integridade da medição mesmo em um cenário sem cookies.</p></div></div>
-    </div>
-    <div class="card">
-      <div class="card-header" onclick="toggleCard(this)">
-        <div class="card-header-left"><span class="card-title">Atribuição de Vendas Offline</span></div>
-        <div class="card-chevron"></div>
-      </div>
-      <div class="card-body"><div class="card-body-inner"><p>Muitos negócios sofrem por não saber qual campanha de busca gerou uma venda fechada no comercial meses depois. Ao integrar os eventos offline, o Google Ads consegue retroagir e atribuir o valor da venda à campanha original, refinando o Smart Bidding.</p></div></div>
-    </div>
-    <div class="card">
-      <div class="card-header" onclick="toggleCard(this)">
-        <div class="card-header-left"><span class="card-title">Melhoria da Match Quality</span></div>
-        <div class="card-chevron"></div>
-      </div>
-      <div class="card-body"><div class="card-body-inner"><p>A CAPI permite enviar sinais adicionais (como e-mail criptografado ou telefone) que ajudam as plataformas a identificar com maior precisão quem é o usuário — aumentando a taxa de atribuição e reduzindo o CPA aparente.</p></div></div>
-    </div>
-  </div>
+<section class="section reveal" id="intermediario-intro" style="background: linear-gradient(135deg, #a91c31 0%, #7a1422 100%); color: white; padding: 48px 64px;">
+  <p style="font-size:9px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:12px;">Nível</p>
+  <h2 style="font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:600; color:white; margin-bottom:20px; line-height:1.2;">Intermediário</h2>
+  <p style="font-size:15px; line-height:1.8; color:rgba(255,255,255,0.85); max-width:640px;">Passamos e garantimos o básico, hora de aperfeiçoar. Quando chegamos nessa etapa da Maturidade, é hora de pensarmos em como fazer nossos Usuários se manterem no nosso Ecossistema, além de expandir nosso entendimento do seu comportamento.</p>
 </section>
 
-<!-- 07 ENHANCED CONVERSIONS -->
+<section class="section reveal" id="leads">
+  <h2 class="section-title">Geração de Leads</h2>
+  <div class="section-summary"><span class="section-summary-icon">🎯</span><p class="section-summary-text">A Geração de Leads é o processo de transformar visitantes anônimos em oportunidades de negócio reais, capturando informações que permitem iniciar um relacionamento comercial estratégico.</p></div>
+
+  <p class="section-text">Em um mercado onde a maioria das empresas ainda utiliza ferramentas digitais de forma intuitiva e pouco estratégica, o grande desafio não é apenas atrair volume, mas garantir que cada contato capturado tenha um perfil qualificado e alinhado aos objetivos de vendas da organização.</p>
+  <p class="section-text">Para dar inteligência a esse processo, a Implementação de Eventos atua como uma camada de monitoramento que registra cada interação do usuário antes mesmo da conversão final. Ao coletar esses dados primários, sua empresa deixa de depender de suposições e passa a entender quais comportamentos — como o download de um material rico ou a interação com uma demonstração — sinalizam uma intenção real de compra. Essa base sólida permite segmentar leads com precisão e priorizar os esforços comerciais nos contatos que oferecem o maior potencial de retorno sobre o investimento (ROI).</p>
+</section>
+
+<!-- 03 TAXONOMIA DE DADOS -->
 <section class="section reveal" id="enhanced">
   <h2 class="section-title">Enhanced Conversions for Leads</h2>
-  <div class="section-summary"><span class="section-summary-icon">✅</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">✅</span><p class="section-summary-text">EC4L é o caminho para a integração de dados de Usuário visando Remarketing em campanhas de Google Ads.</p></div>
 
   <p class="section-lead">O Enhanced Conversions for Leads é uma tecnologia do Google Ads projetada para fechar o gap entre o lead gerado no site e a venda final realizada no CRM. Utiliza dados primários fornecidos pelo usuário de forma criptografada para identificar quem realmente converteu após clicar em um anúncio.</p>
 
@@ -843,190 +1024,41 @@
 </section>
 
 <!-- 08 DOCUMENTAÇÃO -->
-<section class="section reveal" id="documentacao">
-  <h2 class="section-title">Documentação Técnica — Criação e Validação</h2>
-  <div class="section-summary"><span class="section-summary-icon">📋</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+<section class="section reveal" id="capi">
+  <h2 class="section-title">Eventos Offline e CAPI</h2>
+  <div class="section-summary"><span class="section-summary-icon">🛡️</span><p class="section-summary-text">Eventos Offline tem como intuito o Refinamento e Acurácia de dados coletados no Web, além de complementar com dados em Jornadas totalmente Offline.</p></div>
 
-  <p class="section-lead">A fase de documentação técnica é o alicerce que garante a integridade de todo o sistema de mensuração. Desenvolvemos o Plano de Mensuração — um roteiro detalhado que traduz os seus objetivos de negócio em especificações técnicas precisas.</p>
+  <p class="section-lead">A CAPI (Conversion API) e a integração de Eventos Offline representam a evolução do rastreamento digital, permitindo que as empresas enviem dados de conversão diretamente de seus servidores para as plataformas de mídia. Enquanto o Pixel tradicional depende do navegador do usuário — que pode ser bloqueado —, a CAPI garante que nenhuma venda seja perdida.</p>
 
   <div class="cards">
     <div class="card">
       <div class="card-header" onclick="toggleCard(this)">
-        <div class="card-header-left"><span class="card-title">Definição da Camada de Dados</span></div>
+        <div class="card-header-left"><span class="card-title">Imunidade ao Fim dos Cookies</span></div>
         <div class="card-chevron"></div>
       </div>
-      <div class="card-body"><div class="card-body-inner"><p>Criamos a estrutura que organiza as informações no site para que as ferramentas de marketing as leiam com perfeição, sem depender de alterações constantes no código.</p></div></div>
+      <div class="card-body"><div class="card-body-inner"><p>Com o aumento das restrições de privacidade nos navegadores, o rastreamento via Pixel tornou-se limitado. A CAPI web resolve esse problema ao processar os dados no servidor, garantindo a integridade da medição mesmo em um cenário sem cookies.</p></div></div>
     </div>
     <div class="card">
       <div class="card-header" onclick="toggleCard(this)">
-        <div class="card-header-left"><span class="card-title">Protocolos de Auditoria</span></div>
+        <div class="card-header-left"><span class="card-title">Atribuição de Vendas Offline</span></div>
         <div class="card-chevron"></div>
       </div>
-      <div class="card-body"><div class="card-body-inner"><p>Realizamos testes em ambiente de homologação para garantir que os eventos de conversão (vendas, leads, carrinho) estão sendo disparados com os valores e parâmetros corretos.</p></div></div>
+      <div class="card-body"><div class="card-body-inner"><p>Muitos negócios sofrem por não saber qual campanha de busca gerou uma venda fechada no comercial meses depois. Ao integrar os eventos offline, o Google Ads consegue retroagir e atribuir o valor da venda à campanha original, refinando o Smart Bidding.</p></div></div>
     </div>
     <div class="card">
       <div class="card-header" onclick="toggleCard(this)">
-        <div class="card-header-left"><span class="card-title">Governança e Continuidade</span></div>
+        <div class="card-header-left"><span class="card-title">Melhoria da Match Quality</span></div>
         <div class="card-chevron"></div>
       </div>
-      <div class="card-body"><div class="card-body-inner"><p>Estabelecemos um guia de boas práticas para que futuras atualizações no seu site não interrompam o rastreamento, preservando o histórico e a inteligência das campanhas.</p></div></div>
+      <div class="card-body"><div class="card-body-inner"><p>A CAPI permite enviar sinais adicionais (como e-mail criptografado ou telefone) que ajudam as plataformas a identificar com maior precisão quem é o usuário — aumentando a taxa de atribuição e reduzindo o CPA aparente.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- 09 MAPEAMENTO -->
-<section class="section reveal" id="mapeamento">
-  <h2 class="section-title">Mapeamento de Eventos</h2>
-  <div class="section-summary"><span class="section-summary-icon">🗺️</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
-
-  <p class="section-lead">O mapeamento se dá necessário quando queremos entender todos os pontos de entrada e contato do usuário para/com a sua plataforma, permitindo um melhor entendimento das jornadas que o mesmo pode ter e como otimizar pontos de conversão.</p>
-  <p class="section-text">Assim, a partir de análises de navegação no ambiente apontado e também de alinhamentos com os objetivos do seu empreendimento, é construído um Mapa de Tags. Tags essas que são formas de enviarmos informações da jornada do usuário para a plataforma, tendo como meta o melhor tracking e profiling.</p>
-
-  <div class="diagram-wrap" style="padding:32px 20px; margin-top:40px;">
-    <svg viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-height:340px;">
-      <text x="600" y="40" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.92)" letter-spacing="4">MAPEAMENTO DE EVENTOS</text>
-      <rect x="60" y="70" width="1080" height="4" rx="2" fill="rgba(255,255,255,0.15)"/>
-      <circle cx="160" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-      <text x="160" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8" font-weight="600" fill="white">1</text>
-      <text x="160" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.8)">Landing Page</text>
-      <rect x="80" y="118" width="160" height="60" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
-      <text x="160" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="1">page_view</text>
-      <text x="160" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">source / medium</text>
-      <text x="160" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">page_title</text>
-      <circle cx="390" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-      <text x="390" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8" font-weight="600" fill="white">2</text>
-      <text x="390" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.8)">Engajamento</text>
-      <rect x="310" y="118" width="160" height="75" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
-      <text x="390" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="1">scroll / click</text>
-      <text x="390" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">element_id</text>
-      <text x="390" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">scroll_depth</text>
-      <text x="390" y="183" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">click_text</text>
-      <circle cx="620" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-      <text x="620" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8" font-weight="600" fill="white">3</text>
-      <text x="620" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.8)">Formulário</text>
-      <rect x="540" y="118" width="160" height="75" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
-      <text x="620" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="1">generate_lead</text>
-      <text x="620" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">form_id</text>
-      <text x="620" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">lead_source</text>
-      <text x="620" y="183" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">email (hashed)</text>
-      <circle cx="860" cy="72" r="11" fill="rgba(169,28,49,0.4)" stroke="rgba(255,255,255,0.85)" stroke-width="2.5"/>
-      <text x="860" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8" font-weight="600" fill="white">4</text>
-      <text x="860" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.95)">Conversão ★</text>
-      <rect x="775" y="118" width="170" height="75" rx="4" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
-      <text x="860" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" font-weight="600" fill="rgba(255,255,255,0.9)" letter-spacing="1">purchase</text>
-      <text x="860" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.9)">transaction_id</text>
-      <text x="860" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.9)">value / currency</text>
-      <text x="860" y="183" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.9)">items[ ]</text>
-      <circle cx="1080" cy="72" r="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-      <text x="1080" y="76" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8" font-weight="600" fill="white">5</text>
-      <text x="1080" y="102" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.8)">Pós-venda</text>
-      <rect x="1000" y="118" width="160" height="60" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
-      <text x="1080" y="139" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="1">refund / offline</text>
-      <text x="1080" y="155" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">order_status</text>
-      <text x="1080" y="169" text-anchor="middle" font-family="Poppins,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">refund_value</text>
-      <text x="60" y="270" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.75)" letter-spacing="3">DESTINOS</text>
-      <rect x="60" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="125" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.95)">GA4</text>
-      <rect x="208" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="273" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.95)">Google Ads</text>
-      <rect x="356" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="421" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.95)">Meta CAPI</text>
-      <rect x="504" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="569" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.95)">DV360</text>
-      <rect x="652" y="288" width="130" height="38" rx="4" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <text x="717" y="312" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.95)">CRM</text>
-      <rect x="60" y="360" width="1080" height="80" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.7)" stroke-width="1" stroke-dasharray="5,4"/>
-      <text x="80" y="385" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.8)" letter-spacing="2">LEGENDA</text>
-      <circle cx="90" cy="408" r="5" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-      <text x="102" y="412" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.85)">Ponto de coleta</text>
-      <rect x="210" y="403" width="12" height="12" rx="2" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.65)" stroke-width="1"/>
-      <text x="228" y="412" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.85)">Evento + parâmetros</text>
-      <rect x="380" y="403" width="12" height="12" rx="2" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
-      <text x="398" y="412" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.85)">Conversão principal</text>
-    </svg>
-    <p class="diagram-caption">Jornada do usuário — pontos de coleta e eventos por etapa</p>
-  </div>
-</section>
-
-<!-- 10 GLOSSÁRIO -->
-<section class="section reveal" id="glossario">
-  <h2 class="section-title">Glossário de Atributos</h2>
-  <div class="section-summary"><span class="section-summary-icon">🏷️</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
-
-  <p class="section-lead">O Glossário de Atributos parte do Mapa de Tags, visando adicionar atributos que funcionam como identificadores em determinados elementos no ambiente.</p>
-  <p class="section-text">Com esses identificadores temos possibilidade de coletar informações de texto a nível de cliques, inclusive garantir por meio destes identificadores que o tagueamento perdure com poucas ou quase nenhuma manutenção.</p>
-</section>
-
-<!-- 11 DATALAYERS -->
-<section class="section reveal" id="datalayers">
-  <h2 class="section-title">Mapa de dataLayers</h2>
-  <div class="section-summary"><span class="section-summary-icon">🔗</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
-
-  <p class="section-lead">O Mapa de dataLayers envia informações que não estão disponíveis na visualização do ambiente, como o ID de um produto ou ID do usuário.</p>
-  <p class="section-text">O outro uso é de persistir informações que estão presentes em uma etapa da jornada em outra em que as mesmas não estão, porém são úteis para o evento — garantindo continuidade e integridade dos dados ao longo de toda a jornada.</p>
-
-  <div class="diagram-wrap" style="padding:32px 20px; margin-top:40px;">
-    <svg viewBox="0 0 1200 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-height:380px;">
-      <text x="600" y="44" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.92)" letter-spacing="4">MAPA DE DATALAYERS</text>
-      <rect x="60" y="80" width="200" height="70" rx="4" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
-      <text x="160" y="112" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="1">AÇÃO DO USUÁRIO</text>
-      <text x="160" y="132" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="300" fill="rgba(255,255,255,0.85)">clique no botão CTA</text>
-      <line x1="160" y1="150" x2="160" y2="195" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
-      <polygon points="155,193 165,193 160,203" fill="rgba(255,255,255,0.85)"/>
-      <rect x="60" y="205" width="200" height="95" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-      <text x="160" y="228" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="1">dataLayer.push</text>
-      <text x="80" y="248" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.9)">event: 'purchase'</text>
-      <text x="80" y="264" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.9)">product_id: '1234'</text>
-      <text x="80" y="280" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.9)">user_id: 'abc99'</text>
-      <line x1="260" y1="252" x2="340" y2="252" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
-      <polygon points="338,247 338,257 348,252" fill="rgba(255,255,255,0.85)"/>
-      <rect x="350" y="205" width="160" height="95" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
-      <text x="430" y="245" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="1">GTM</text>
-      <text x="430" y="265" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" font-weight="300" fill="rgba(255,255,255,0.85)">escuta o evento</text>
-      <text x="430" y="281" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" font-weight="300" fill="rgba(255,255,255,0.85)">dispara as tags</text>
-      <line x1="510" y1="252" x2="575" y2="252" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
-      <line x1="575" y1="195" x2="575" y2="330" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <line x1="575" y1="195" x2="590" y2="195" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <line x1="575" y1="252" x2="590" y2="252" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <line x1="575" y1="330" x2="590" y2="330" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
-      <rect x="590" y="168" width="140" height="54" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
-      <text x="660" y="192" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.8)">GA4</text>
-      <text x="660" y="210" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Analytics</text>
-      <rect x="590" y="225" width="140" height="54" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
-      <text x="660" y="249" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.8)">Google Ads</text>
-      <text x="660" y="267" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Conversão</text>
-      <rect x="590" y="303" width="140" height="54" rx="4" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
-      <text x="660" y="327" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.8)">Meta / CAPI</text>
-      <text x="660" y="345" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Pixel + Server</text>
-      <rect x="790" y="90" width="370" height="320" rx="4" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-      <text x="810" y="118" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="3">VARIÁVEIS COMUNS</text>
-      <text x="810" y="148" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.7)">event</text><text x="950" y="148" font-family="Poppins,sans-serif" font-size="10" fill="rgba(255,255,255,0.85)">'purchase', 'add_to_cart'</text>
-      <line x1="810" y1="158" x2="1135" y2="158" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <text x="810" y="178" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.7)">user_id</text><text x="950" y="178" font-family="Poppins,sans-serif" font-size="10" fill="rgba(255,255,255,0.85)">ID único do usuário logado</text>
-      <line x1="810" y1="188" x2="1135" y2="188" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <text x="810" y="208" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.7)">product_id</text><text x="950" y="208" font-family="Poppins,sans-serif" font-size="10" fill="rgba(255,255,255,0.85)">SKU ou ID do produto</text>
-      <line x1="810" y1="218" x2="1135" y2="218" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <text x="810" y="238" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.7)">transaction_id</text><text x="950" y="238" font-family="Poppins,sans-serif" font-size="10" fill="rgba(255,255,255,0.85)">ID único da transação</text>
-      <line x1="810" y1="248" x2="1135" y2="248" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <text x="810" y="268" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.7)">value</text><text x="950" y="268" font-family="Poppins,sans-serif" font-size="10" fill="rgba(255,255,255,0.85)">Valor monetário do evento</text>
-      <line x1="810" y1="278" x2="1135" y2="278" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <text x="810" y="298" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.7)">page_category</text><text x="950" y="298" font-family="Poppins,sans-serif" font-size="10" fill="rgba(255,255,255,0.85)">Categoria da página atual</text>
-      <line x1="810" y1="308" x2="1135" y2="308" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <text x="810" y="328" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.7)">currency</text><text x="950" y="328" font-family="Poppins,sans-serif" font-size="10" fill="rgba(255,255,255,0.85)">'BRL', 'USD'</text>
-      <line x1="810" y1="338" x2="1135" y2="338" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-      <text x="810" y="358" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.7)">consent_status</text><text x="950" y="358" font-family="Poppins,sans-serif" font-size="10" fill="rgba(255,255,255,0.85)">'granted' / 'denied'</text>
-      <rect x="60" y="370" width="620" height="60" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.35)" stroke-width="1" stroke-dasharray="5,4"/>
-      <text x="80" y="395" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.85)" letter-spacing="2">PERSISTÊNCIA</text>
-      <text x="80" y="413" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.8)">Dados de etapas anteriores (ex: ID do produto) são mantidos nas etapas seguintes da jornada</text>
-    </svg>
-    <p class="diagram-caption">Fluxo de dados — dataLayer → GTM → plataformas</p>
-  </div>
-</section>
-
-<!-- 12 CONSENT MODE -->
+<!-- 07 ENHANCED CONVERSIONS -->
 <section class="section reveal" id="consent">
   <h2 class="section-title">Consent Mode</h2>
-  <div class="section-summary"><span class="section-summary-icon">🔒</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">🔒</span><p class="section-summary-text">Garantindo as boas práticas, conforme LGPD e respeitando a privacidade do Usuário.</p></div>
 
   <p class="section-lead">O Consent Mode é uma funcionalidade crucial que permite o tratamento e a captura inteligente da permissão do usuário para o envio de suas informações de navegação para plataformas de anúncio e análise, como o Google Analytics 4.</p>
   <p class="section-text">Sem o consentimento explícito, o impacto na coleta de dados é significativo. Tags de mídia podem não disparar, e o GA4 passa a trabalhar com dados simulados e agregados — refletindo no aumento das fontes "Direct/Not Set" mesmo com campanhas ativas.</p>
@@ -1039,72 +1071,78 @@
 </section>
 
 <!-- 13 TESTES A/B -->
-<section class="section reveal" id="testes">
-  <h2 class="section-title">Experimentos e Testes A/B</h2>
-  <div class="section-summary"><span class="section-summary-icon">🧪</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
-
-  <p class="section-lead">Os Testes A/B e Experimentos são metodologias que visam a otimização da jornada e interações no ambiente. Eles consistem em comparar duas ou mais versões (A e B, ou A, B, C...) de um elemento, como uma página web, um email ou um anúncio, para determinar qual delas performa melhor em relação a um objetivo específico, como conversões, cliques, formulários, dentre outros. Com isso podemos tomar decisões chave baseadas em dados.</p>
-  <p class="section-text">A criação de um teste A/B começa com uma hipótese clara e a definição das variações a serem testadas. Ferramentas como a VWO permitem que os usuários configurem esses experimentos de forma intuitiva, seja através de editores visuais de arrastar e soltar ou edições de código. Existem os testes de Redirect, onde versões completamente diferentes de uma página (em URLs distintas) são comparadas, e os testes A/B (multi-variações), que avaliam o impacto combinado de múltiplas alterações em diversos elementos de uma só vez, revelando interações complexas entre eles.</p>
-  <p class="section-text">A fase de relatoria dos resultados é crucial para transformar dados em decisões. Com base nesses insights, é possível declarar um vencedor, implementar a versão de melhor desempenho e continuar o ciclo de otimização contínua, garantindo que as melhorias sejam sustentadas por evidências concretas.</p>
-
-  <div class="diagram-wrap" style="padding:32px 20px; margin-top:40px;">
-    <svg viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-height:340px;">
-      <text x="600" y="40" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.5)" letter-spacing="4">TESTE A/B</text>
-      <rect x="480" y="60" width="240" height="60" rx="4" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-      <text x="600" y="87" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,0.85)">TRÁFEGO</text>
-      <text x="600" y="107" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.4)">100% dos visitantes</text>
-      <line x1="600" y1="120" x2="600" y2="148" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-      <line x1="280" y1="148" x2="920" y2="148" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-      <line x1="280" y1="148" x2="280" y2="176" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-      <line x1="920" y1="148" x2="920" y2="176" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-      <polygon points="275,174 285,174 280,184" fill="rgba(255,255,255,0.4)"/>
-      <polygon points="915,174 925,174 920,184" fill="rgba(255,255,255,0.4)"/>
-      <text x="415" y="143" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.35)">50%</text>
-      <text x="755" y="143" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.35)">50%</text>
-      <rect x="100" y="186" width="360" height="155" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-      <text x="280" y="212" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" font-weight="600" fill="rgba(255,255,255,0.8)" letter-spacing="2">VERSÃO A</text>
-      <text x="280" y="230" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.35)">Controle (original)</text>
-      <rect x="130" y="248" width="300" height="16" rx="2" fill="rgba(255,255,255,0.08)"/>
-      <rect x="130" y="270" width="220" height="9" rx="2" fill="rgba(255,255,255,0.05)"/>
-      <rect x="130" y="285" width="180" height="9" rx="2" fill="rgba(255,255,255,0.05)"/>
-      <rect x="130" y="304" width="110" height="26" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-      <text x="185" y="321" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.55)">Saiba Mais</text>
-      <rect x="740" y="186" width="360" height="155" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-      <text x="920" y="212" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" font-weight="600" fill="rgba(255,255,255,0.95)" letter-spacing="2">VERSÃO B</text>
-      <text x="920" y="230" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.5)">Variante (testada)</text>
-      <rect x="770" y="248" width="300" height="16" rx="2" fill="rgba(255,255,255,0.12)"/>
-      <rect x="770" y="270" width="220" height="9" rx="2" fill="rgba(255,255,255,0.07)"/>
-      <rect x="770" y="285" width="180" height="9" rx="2" fill="rgba(255,255,255,0.07)"/>
-      <rect x="770" y="304" width="140" height="26" rx="3" fill="rgba(169,28,49,0.65)" stroke="rgba(200,50,50,0.6)" stroke-width="1"/>
-      <text x="840" y="321" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.95)">Quero Começar →</text>
-      <circle cx="600" cy="264" r="28" fill="rgba(30,4,4,0.85)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-      <text x="600" y="270" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.65)">VS</text>
-      <rect x="100" y="370" width="360" height="74" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-      <text x="280" y="394" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.45)">RESULTADO A</text>
-      <text x="280" y="422" text-anchor="middle" font-family="Poppins,sans-serif" font-size="26" font-weight="600" fill="rgba(255,255,255,0.55)">3.2%</text>
-      <text x="280" y="438" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">taxa de conversão</text>
-      <rect x="740" y="370" width="360" height="74" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-      <text x="920" y="394" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.75)">RESULTADO B  ✓  VENCEDOR</text>
-      <text x="920" y="422" text-anchor="middle" font-family="Poppins,sans-serif" font-size="26" font-weight="600" fill="rgba(255,255,255,0.95)">5.8%</text>
-      <text x="920" y="438" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" fill="rgba(255,255,255,0.5)">taxa de conversão · +81% vs. controle</text>
-    </svg>
-    <p class="diagram-caption">Comparação de variantes — decisão baseada em dados</p>
-  </div>
+<section class="section reveal" id="avancado-intro" style="background: linear-gradient(135deg, #a91c31 0%, #7a1422 100%); color: white; padding: 48px 64px;">
+  <p style="font-size:9px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:12px;">Nível</p>
+  <h2 style="font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:600; color:white; margin-bottom:20px; line-height:1.2;">Avançado</h2>
+  <p style="font-size:15px; line-height:1.8; color:rgba(255,255,255,0.85); max-width:640px;">Chegamos ao ponto onde já temos um excelente entendimento de nossos ambientes e audiências, mas não é hora de parar. Aqui vamos entender como continuar expandindo nossos dados e refinando o material que temos nas plataformas de análise.</p>
 </section>
 
-<!-- 14 GERAÇÃO DE LEADS (2) -->
 <section class="section reveal" id="leads2">
   <h2 class="section-title">Geração de Leads — Otimização Avançada</h2>
-  <div class="section-summary"><span class="section-summary-icon">📈</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">📈</span><p class="section-summary-text">Sabemos os pontos de contato e como o Usuário se porta, agora vamos entender como refinar e garantirmos que este Usuário sempre esteja interessado.</p></div>
 
   <p class="section-lead">A geração de leads é otimizada ao mapear eventos-chave e captação de User-Provided Data (dados do Usuário) visando o refinamento de audiências para campanhas.</p>
   <p class="section-text">O GA4 rastreia esses eventos de conversão, oferecendo insights detalhados sobre a aquisição de leads. Integrado ao Google Ads, esses eventos capacitam as campanhas com as Conversões Otimizadas para Leads (Enhanced Conversions for Leads) para uma atribuição mais precisa. Essa funcionalidade melhora a medição ao usar dados 1st-party para conectar interações online e offline, permitindo inclusive a importação de dados offline de leads para fechar o ciclo de análise e refinar ainda mais a estratégia.</p>
 </section>
 
 <!-- 15 EVENTOS OFFLINE -->
+<section class="section reveal" id="testes">
+  <h2 class="section-title">Experimentos e Testes A/B</h2>
+  <div class="section-summary"><span class="section-summary-icon">🧪</span><p class="section-summary-text">Aprenda na prática e tenha ciência de como seu Usuário se comporta em diferentes cenários que visam o mesmo objetivo.</p></div>
+
+  <p class="section-lead">Os Testes A/B e Experimentos são metodologias que visam a otimização da jornada e interações no ambiente. Eles consistem em comparar duas ou mais versões (A e B, ou A, B, C...) de um elemento, como uma página web, um email ou um anúncio, para determinar qual delas performa melhor em relação a um objetivo específico, como conversões, cliques, formulários, dentre outros. Com isso podemos tomar decisões chave baseadas em dados.</p>
+  <p class="section-text">A criação de um teste A/B começa com uma hipótese clara e a definição das variações a serem testadas. Ferramentas como a VWO permitem que os usuários configurem esses experimentos de forma intuitiva, seja através de editores visuais de arrastar e soltar ou edições de código. Existem os testes de Redirect, onde versões completamente diferentes de uma página (em URLs distintas) são comparadas, e os testes A/B (multi-variações), que avaliam o impacto combinado de múltiplas alterações em diversos elementos de uma só vez, revelando interações complexas entre eles.</p>
+  <p class="section-text">A fase de relatoria dos resultados é crucial para transformar dados em decisões. Com base nesses insights, é possível declarar um vencedor, implementar a versão de melhor desempenho e continuar o ciclo de otimização contínua, garantindo que as melhorias sejam sustentadas por evidências concretas.</p>
+
+  <div class="diagram-wrap" style="padding:32px 20px; margin-top:40px;">
+    <svg viewBox="0 0 1200 640" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+      <text x="600" y="40" text-anchor="middle" font-family="Poppins,sans-serif" font-size="17.6" font-weight="600" fill="rgba(255,255,255,0.5)" letter-spacing="4">TESTE A/B</text>
+      <rect x="480" y="60" width="240" height="60" rx="4" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+      <text x="600" y="87" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14.9" font-weight="600" fill="rgba(255,255,255,0.85)">TRÁFEGO</text>
+      <text x="600" y="107" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.4)">100% dos visitantes</text>
+      <line x1="600" y1="120" x2="600" y2="148" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+      <line x1="280" y1="148" x2="920" y2="148" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+      <line x1="280" y1="148" x2="280" y2="176" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+      <line x1="920" y1="148" x2="920" y2="176" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+      <polygon points="275,174 285,174 280,184" fill="rgba(255,255,255,0.4)"/>
+      <polygon points="915,174 925,174 920,184" fill="rgba(255,255,255,0.4)"/>
+      <text x="415" y="143" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.35)">50%</text>
+      <text x="755" y="143" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.35)">50%</text>
+      <rect x="100" y="186" width="360" height="155" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+      <text x="280" y="212" text-anchor="middle" font-family="Poppins,sans-serif" font-size="16.2" font-weight="600" fill="rgba(255,255,255,0.8)" letter-spacing="2">VERSÃO A</text>
+      <text x="280" y="230" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.35)">Controle (original)</text>
+      <rect x="130" y="248" width="300" height="16" rx="2" fill="rgba(255,255,255,0.08)"/>
+      <rect x="130" y="270" width="220" height="9" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <rect x="130" y="285" width="180" height="9" rx="2" fill="rgba(255,255,255,0.05)"/>
+      <rect x="130" y="304" width="110" height="26" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <text x="185" y="321" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.55)">Saiba Mais</text>
+      <rect x="740" y="186" width="360" height="155" rx="4" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+      <text x="920" y="212" text-anchor="middle" font-family="Poppins,sans-serif" font-size="16.2" font-weight="600" fill="rgba(255,255,255,0.95)" letter-spacing="2">VERSÃO B</text>
+      <text x="920" y="230" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.8" fill="rgba(255,255,255,0.5)">Variante (testada)</text>
+      <rect x="770" y="248" width="300" height="16" rx="2" fill="rgba(255,255,255,0.12)"/>
+      <rect x="770" y="270" width="220" height="9" rx="2" fill="rgba(255,255,255,0.07)"/>
+      <rect x="770" y="285" width="180" height="9" rx="2" fill="rgba(255,255,255,0.07)"/>
+      <rect x="770" y="304" width="140" height="26" rx="3" fill="rgba(169,28,49,0.65)" stroke="rgba(200,50,50,0.6)" stroke-width="1"/>
+      <text x="840" y="321" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.95)">Quero Começar →</text>
+      <circle cx="600" cy="264" r="28" fill="rgba(30,4,4,0.85)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+      <text x="600" y="270" text-anchor="middle" font-family="Poppins,sans-serif" font-size="17.6" font-weight="600" fill="rgba(255,255,255,0.65)">VS</text>
+      <rect x="100" y="370" width="360" height="74" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text x="280" y="394" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.45)">RESULTADO A</text>
+      <text x="280" y="422" text-anchor="middle" font-family="Poppins,sans-serif" font-size="35.1" font-weight="600" fill="rgba(255,255,255,0.55)">3.2%</text>
+      <text x="280" y="438" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.3)">taxa de conversão</text>
+      <rect x="740" y="370" width="360" height="74" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+      <text x="920" y="394" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13.5" font-weight="600" fill="rgba(255,255,255,0.75)">RESULTADO B  ✓  VENCEDOR</text>
+      <text x="920" y="422" text-anchor="middle" font-family="Poppins,sans-serif" font-size="35.1" font-weight="600" fill="rgba(255,255,255,0.95)">5.8%</text>
+      <text x="920" y="438" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12.2" fill="rgba(255,255,255,0.5)">taxa de conversão · +81% vs. controle</text>
+    </svg>
+    <p class="diagram-caption">Comparação de variantes — decisão baseada em dados</p>
+  </div>
+</section>
+
+<!-- 14 GERAÇÃO DE LEADS (2) -->
 <section class="section reveal" id="offline">
   <h2 class="section-title">Eventos Offline</h2>
-  <div class="section-summary"><span class="section-summary-icon">🏪</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">🏪</span><p class="section-summary-text">Os Eventos Offline estão aqui para entendermos o Usuário como um todo, mesmo que ele ainda não tenha navegado no seu ambiente Web.</p></div>
 
   <p class="section-lead">A captação de dados offline é fundamental para se obter uma visão 360º da jornada do cliente, especialmente em cenários que demandam mapeamentos de jornadas zero-rating, onde as interações se estendem para além do ambiente digital imediato.</p>
   <p class="section-text">Ao integrar dados de interações físicas, chamadas de call center ou informações de CRM, plataformas como o GA4 conseguem atribuir valor a pontos de contato que, de outra forma, seriam invisíveis, oferecendo um panorama mais completo da contribuição de cada canal.</p>
@@ -1114,7 +1152,7 @@
 <!-- 16 MEASUREMENT PROTOCOL -->
 <section class="section reveal" id="measurement">
   <h2 class="section-title">Measurement Protocol</h2>
-  <div class="section-summary"><span class="section-summary-icon">📡</span><p class="section-summary-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p></div>
+  <div class="section-summary"><span class="section-summary-icon">📡</span><p class="section-summary-text">O Protocolo de Mensuração vem para não só complementar seus dados de GA4, como também mapear jornadas que só acontece por trás da cortina.</p></div>
 
   <p class="section-lead">O Measurement Protocol funciona como um "telefone direto", permitindo que demais partes do seu negócio (sistema de pagamentos, diferentes jornadas ou compras em loja física) informem ao GA4 o que está acontecendo.</p>
   <p class="section-text">O funcionamento se dá através do envio de solicitações contendo informações como nome de evento, status atual de um pedido criado anteriormente, dados de usuário, dentre outros.</p>
@@ -1148,6 +1186,12 @@
 </div><!-- end layout -->
 
 <script>
+  function toggleGroup(header) {
+    const items = header.nextElementSibling;
+    header.classList.toggle('collapsed');
+    items.classList.toggle('collapsed');
+  }
+
   function toggleCard(header) {
     const card = header.parentElement;
     card.classList.toggle('open');
